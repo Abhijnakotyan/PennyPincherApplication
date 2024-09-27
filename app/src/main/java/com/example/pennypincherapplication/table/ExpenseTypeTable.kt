@@ -9,7 +9,7 @@ class ExpenseTypeTable : BaseColumns {
         const val TYPE = "type"
 
         const val CREATE_TABLE_QUERY = "CREATE TABLE $TABLE_NAME (" +
-                "${_ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$TYPE TEXT)"
 
         const val SELECT_ALL = "SELECT * FROM $TABLE_NAME"

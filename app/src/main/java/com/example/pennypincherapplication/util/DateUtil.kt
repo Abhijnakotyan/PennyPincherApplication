@@ -1,49 +1,54 @@
 package com.example.pennypincherapplication.util
 
-import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants
-import java.text.SimpleDateFormat
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 object DateUtil {
     const val DATE_FORMAT = "dd-MM-yyyy"
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getCurrentDate(): String {
-        return DateTime.now().toString(DATE_FORMAT)
+        return LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getCurrentWeeksDates(): List<String> {
         val dates = mutableListOf<String>()
         val now = LocalDate.now()
 
-        for (day in DateTimeConstants.MONDAY..DateTimeConstants.SUNDAY) {
-            val localDate = now.withDayOfWeek(day)
-            dates.add(getFormattedDate(localDate, DATE_FORMAT))
+        for (day in DayOfWeek.values()) {
+            val localDate = now.with(DayOfWeek.valueOf(day.name))
+            dates.add(getFormattedDate(localDate))
         }
 
         return dates
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun currentMonthOfYear(): String {
-        val date = DateTime.now().toString(DATE_FORMAT)
+        val date = LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT))
         val split = date.split("-")
         return "${split[1]}-${split[2]}"
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getDayName(dateString: String): String? {
-        val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.US)
         return try {
-            val date = formatter.parse(dateString)
-            val calendar = Calendar.getInstance().apply { time = date }
-            calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)
+            val date = LocalDate.parse(dateString, formatter)
+            date.dayOfWeek.name.capitalize(Locale.ROOT) // Use Java's built-in functionality to get the day name
         } catch (e: Exception) {
             null // Handle parsing exceptions gracefully
         }
     }
 
-    private fun getFormattedDate(date: LocalDate, format: String): String {
-        val simpleDateFormat = SimpleDateFormat(format)
-        return simpleDateFormat.format(date.toDate())
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getFormattedDate(date: LocalDate): String {
+        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
+        return date.format(formatter)
     }
 }

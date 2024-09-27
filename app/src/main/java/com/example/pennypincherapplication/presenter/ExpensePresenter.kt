@@ -1,8 +1,10 @@
 package com.example.pennypincherapplication.presenter
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.pennypincherapplication.database.ExpenseDatabaseHelper
 import com.example.pennypincherapplication.model.Expense
-import com.example.pennypincherapplication.utils.DateUtil.getCurrentDate
+import com.example.pennypincherapplication.util.DateUtil.getCurrentDate
 import com.example.pennypincherapplication.view.ExpenseView
 
 class ExpensePresenter(
@@ -10,6 +12,7 @@ class ExpensePresenter(
     private val view: ExpenseView
 ) {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addExpense(): Boolean {
         val amount = view.getAmount()
 
@@ -18,7 +21,7 @@ class ExpensePresenter(
             return false
         }
 
-        val expense = Expense(amount.toLong(), view.getType(), getCurrentDate())
+        val expense = Expense(id.toInt(), amount.toLong(), view.getType(), getCurrentDate())
         database.addExpense(expense)
         return true
     }

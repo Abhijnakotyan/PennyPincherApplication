@@ -9,11 +9,14 @@ import android.widget.ExpandableListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.pennypincherapplication.R
+import com.example.pennypincherapplication.adapter.CurrentWeeksExpenseAdapter
 import com.example.pennypincherapplication.database.ExpenseDatabaseHelper
+import com.example.pennypincherapplication.model.Expense
 import com.example.pennypincherapplication.presenter.CurrentMonthExpensePresenter
+import com.example.pennypincherapplication.presenter.CurrentWeekExpensePresenter
 import com.example.pennypincherapplication.view.CurrentMonthExpenseView
-import com.example.pennypincherapplication.widget.Bar
-import com.example.pennypincherapplication.widget.BarGraph
+import com.example.pennypincherapplication.view.CurrentWeekExpenseView
+
 
 
 class CurrentWeekExpenseFragment : Fragment(), CurrentWeekExpenseView {
@@ -25,11 +28,11 @@ class CurrentWeekExpenseFragment : Fragment(), CurrentWeekExpenseView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val expenseDatabaseHelper = ExpenseDatabaseHelper(activity)
-        val presenter = CurrentWeekExpensePresenter(expenseDatabaseHelper, this)
-        presenter.renderTotalExpenses()
-        presenter.renderCurrentWeeksExpenses()
-        expenseDatabaseHelper.close()
+        val expenseDatabaseHelper = activity?.let { ExpenseDatabaseHelper(it) }
+        val presenter = expenseDatabaseHelper?.let { CurrentWeekExpensePresenter(it, this) }
+        presenter?.renderTotalExpenses()
+        presenter?.renderCurrentWeeksExpenses()
+        expenseDatabaseHelper?.close()
     }
 
     override fun displayCurrentWeeksExpenses(expensesByDate: Map<String, List<Expense>>) {

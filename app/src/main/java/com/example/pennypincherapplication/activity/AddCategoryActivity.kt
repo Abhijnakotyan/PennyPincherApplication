@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import com.example.miniproject.R
+import com.example.pennypincherapplication.R
 import com.example.pennypincherapplication.database.ExpenseDatabaseHelper
 import com.example.pennypincherapplication.presenter.CategoryPresenter
 import com.example.pennypincherapplication.view.AddCategoryView

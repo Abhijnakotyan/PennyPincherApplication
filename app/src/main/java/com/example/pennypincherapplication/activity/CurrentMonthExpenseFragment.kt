@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.echo.holographlibrary.Bar
+import com.echo.holographlibrary.BarGraph
 import com.example.pennypincherapplication.R
 import com.example.pennypincherapplication.database.ExpenseDatabaseHelper
 import com.example.pennypincherapplication.presenter.CurrentMonthExpensePresenter
 import com.example.pennypincherapplication.view.CurrentMonthExpenseView
-import com.example.pennypincherapplication.widget.Bar
-import com.example.pennypincherapplication.widget.BarGraph
+
 
 class CurrentMonthExpenseFragment : Fragment(), CurrentMonthExpenseView {
 
@@ -24,12 +25,12 @@ class CurrentMonthExpenseFragment : Fragment(), CurrentMonthExpenseView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val expenseDatabaseHelper = ExpenseDatabaseHelper(activity)
-        val presenter = CurrentMonthExpensePresenter(this, expenseDatabaseHelper)
+        val expenseDatabaseHelper = activity?.let { ExpenseDatabaseHelper(it) }
+        val presenter = expenseDatabaseHelper?.let { CurrentMonthExpensePresenter(this, it) }
 
-        presenter.plotGraph()
-        presenter.showTotalExpense()
-        expenseDatabaseHelper.close()
+        presenter?.plotGraph()
+        presenter?.showTotalExpense()
+        expenseDatabaseHelper?.close()
     }
 
     override fun displayGraph(points: List<Bar>) {

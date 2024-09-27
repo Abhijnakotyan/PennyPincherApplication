@@ -1,11 +1,13 @@
 package com.example.pennypincherapplication.util
 
 import com.example.pennypincherapplication.model.Expense
+import java.math.BigDecimal
 
 class ExpenseCollection(private val expenses: List<Expense>) {
 
-    fun getTotalExpense(): Long {
-        return expenses.sumOf { it.amount }
+    fun TotalExpense(): Long {
+        // Convert BigDecimal to Long before summing
+        return expenses.sumOf { it.amount.toLong() }
     }
 
     fun groupByDate(): Map<String, List<Expense>> {

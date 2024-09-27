@@ -1,9 +1,9 @@
 package com.example.pennypincherapplication.presenter
 
 
-import com.example
+
 import com.example.pennypincherapplication.database.ExpenseDatabaseHelper
-import com.example.pennypincherapplication.utils.ExpenseCollection
+import com.example.pennypincherapplication.util.ExpenseCollection
 import com.example.pennypincherapplication.view.CurrentWeekExpenseView
 
 class CurrentWeekExpensePresenter(
