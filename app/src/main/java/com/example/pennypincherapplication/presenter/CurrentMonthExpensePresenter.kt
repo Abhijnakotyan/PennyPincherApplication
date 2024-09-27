@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.echo.holographlibrary.Bar
 import com.example.pennypincherapplication.database.ExpenseDatabaseHelper
-import com.example.pennypincherapplication.model.Expense
 import com.example.pennypincherapplication.util.ExpenseCollection
 import com.example.pennypincherapplication.view.CurrentMonthExpenseView
 
@@ -33,6 +32,7 @@ class CurrentMonthExpensePresenter(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun showTotalExpense() {
+        // Now the totalExpense property is accessible and works
         view.displayTotalExpense(expenseCollection.totalExpense)
     }
 }

@@ -29,12 +29,12 @@ class AddCategoryActivity : FragmentActivity(), AddCategoryView {
         finishActivity(ADD_NEW_CAT)
     }
 
-    fun getCategory(): String {
+    override fun getCategory(): String {
         val categoryInput = findViewById<TextView>(R.id.category)
         return categoryInput.text.toString()
     }
 
-    fun displayError() {
+    override fun displayError() {
         val view = findViewById<TextView>(R.id.category)
         view.error = getString(R.string.category_empty_error)
     }

@@ -1,12 +1,14 @@
 package com.example.pennypincherapplication.activity
 
 import android.annotation.SuppressLint
+import android.os.Build
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.echo.holographlibrary.Bar
 import com.echo.holographlibrary.BarGraph
@@ -22,6 +24,7 @@ class CurrentMonthExpenseFragment : Fragment(), CurrentMonthExpenseView {
         return inflater.inflate(R.layout.expense_graph, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

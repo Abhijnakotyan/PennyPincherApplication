@@ -1,36 +1,37 @@
 package com.example.pennypincherapplication.table
 
-import android.provider.BaseColumns
+object ExpenseTable {
+    const val TABLE_NAME = "expenses"
+    const val _ID = "_id"
+    const val AMOUNT = "amount"
+    const val TYPE = "type"
+    const val DATE = "date"
 
-class ExpenseTable : BaseColumns {
-    companion object {
-        const val TABLE_NAME = "expenses"
-        const val AMOUNT = "amount"
-        const val TYPE = "type"
-        const val DATE = "date"
+    const val CREATE_TABLE_QUERY = """
+        CREATE TABLE $TABLE_NAME (
+            $_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            $AMOUNT REAL,
+            $TYPE TEXT,
+            $DATE TEXT
+        )
+    """
 
-        const val CREATE_TABLE_QUERY = "CREATE TABLE $TABLE_NAME (" +
-                "${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "$AMOUNT INTEGER, " +
-                "$TYPE TEXT, " +
-                "$DATE TEXT)"
-
-        const val SELECT_ALL = "SELECT * FROM $TABLE_NAME ORDER BY ${BaseColumns._ID} DESC"
-
-        const val SELECT_ALL_GROUP_BY_CATEGORY = "SELECT ${BaseColumns._ID}, date, type, SUM(amount) AS amount FROM $TABLE_NAME GROUP BY type"
-
-        fun getExpensesForDate(date: String): String {
-            return "SELECT * FROM $TABLE_NAME WHERE date LIKE '$date%' ORDER BY ${BaseColumns._ID} DESC"
-        }
-
-        fun getConsolidatedExpensesForDates(dates: List<String>): String {
-            val dateLike = dates.joinToString(" OR ") { "date LIKE '$it%'" }
-            return "SELECT ${BaseColumns._ID}, date, type, SUM(amount) AS amount FROM $TABLE_NAME WHERE $dateLike GROUP BY date, type"
-        }
-
-        fun getExpenseForCurrentMonth(currentMonthOfYear: String): String {
-            return "SELECT ${BaseColumns._ID}, date, type, SUM(amount) AS amount FROM $TABLE_NAME " +
-                    "WHERE date LIKE '%-$currentMonthOfYear' GROUP BY type"
-        }
+    // Method to get expenses for a specific date
+    fun getExpensesForDate(date: String): String {
+        return "SELECT * FROM $TABLE_NAME WHERE $DATE = '$date'"
     }
+
+    // Method to get consolidated expenses for a range of dates (weekly)
+    fun getConsolidatedExpensesForDates(dates: List<String>): String {
+        val formattedDates = dates.joinToString(separator = ",") { "'$it'" }
+        return "SELECT * FROM $TABLE_NAME WHERE $DATE IN ($formattedDates)"
+    }
+
+    // Method to get expenses for the current month
+    fun getExpenseForCurrentMonth(month: String): String {
+        return "SELECT * FROM $TABLE_NAME WHERE strftime('%m', $DATE) = '$month'"
+    }
+
+    const val SELECT_ALL = "SELECT * FROM $TABLE_NAME"
+    const val SELECT_ALL_GROUP_BY_CATEGORY = "SELECT $TYPE, SUM($AMOUNT) AS total FROM $TABLE_NAME GROUP BY $TYPE"
 }

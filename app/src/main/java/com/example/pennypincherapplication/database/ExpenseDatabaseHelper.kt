@@ -14,7 +14,6 @@ import com.example.pennypincherapplication.table.ExpenseTable
 import com.example.pennypincherapplication.table.ExpenseTypeTable
 import com.example.pennypincherapplication.util.DateUtil.getCurrentDate
 import com.example.pennypincherapplication.util.DateUtil.getCurrentWeeksDates
-
 import com.example.pennypincherapplication.util.DateUtil
 
 class ExpenseDatabaseHelper(context: Context) : SQLiteOpenHelper(context, EXPENSE_DB, null, 1) {
@@ -120,17 +119,12 @@ class ExpenseDatabaseHelper(context: Context) : SQLiteOpenHelper(context, EXPENS
         val expenses = mutableListOf<Expense>()
         if (isCursorPopulated(cursor)) {
             do {
+                val id = cursor.getLong(cursor.getColumnIndex(ExpenseTable._ID))
                 val type = cursor.getString(cursor.getColumnIndex(ExpenseTable.TYPE))
                 val amount = cursor.getString(cursor.getColumnIndex(ExpenseTable.AMOUNT))
                 val date = cursor.getString(cursor.getColumnIndex(ExpenseTable.DATE))
-                val id = cursor.getString(cursor.getColumnIndex(ExpenseTable._ID))
 
-                val expense = if (id == null) {
-                    Expense(amount.toLong().toString(), type, date)
-                } else {
-                    Expense (amount.toLong().toString(), type, date)
-
-                }
+                val expense = Expense(id, amount.toLong(), type, date)
                 expenses.add(expense)
             } while (cursor.moveToNext())
         }
@@ -138,8 +132,6 @@ class ExpenseDatabaseHelper(context: Context) : SQLiteOpenHelper(context, EXPENS
         cursor.close()  // Close the cursor to avoid memory leaks
         return expenses
     }
-
-
 
     private fun isCursorPopulated(cursor: Cursor?): Boolean {
         return cursor != null && cursor.moveToFirst()
