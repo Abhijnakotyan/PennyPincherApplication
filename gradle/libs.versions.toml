@@ -16,6 +16,10 @@ mpandroidchart = "v3.1.0"
 constraintlayout = "2.1.4"
 kotlin = "1.9.0"
 yourlibrary = "1.0.0"
+activityVersion = "1.9.2"
+googleGmsGoogleServices = "4.4.2"
+firebaseAuth = "23.0.0"
+firebaseFirestoreKtx = "25.1.0"
 
 [libraries]
 android-holo-graph = { module = "org.quanqi:android-holo-graph", version.ref = "androidHoloGraph" }
@@ -34,7 +38,11 @@ mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 #noinspection SimilarGradleDependency
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activityVersion" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }

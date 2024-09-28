@@ -8,6 +8,15 @@
     <string name="current_week_expenses">Current Week\'s Expenses</string>
     <string name="total_expense">Total Expense - </string>
     <string name="rupee_sym">₹</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
     <string name="expense_add_successfully">Expense Added Successfully..</string>
     <string name="amount_empty_error">Amount can not be empty!!</string>
     <string name="current_months_expenses">Current Month\'s Expenses</string>
@@ -17,6 +26,27 @@
     <string name="action_add_category">Add Category</string>
     <string name="category_empty_error">Category can not be empty!!</string>
     <string name="add_category_success">Category added successfully..</string>
+    <string name="create_account">create Account</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="register">Sign Up</string>
+    <string name="email">Email</string>
+
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+
+    <string name="don_t_have_an_account_register_here">Don\'t have an account? Register here.</string>
+    <string name="login">Login</string>
+    <string name="password1">Password</string>
+    <string name="username_or_email">Username or Email</string>
+    <string name="login1">Login</string>
+    <string name="logout">logout</string>
+    <string name="s">s</string>
+    <string name="logouta">Logout</string>
+    <string name="z">z</string>
+    <string name="searcha">Search</string>
+    <string name="asaved">Saved</string>
+    <string name="share">share</string>
+
 
     <array name="drawer_items">
         <item>Home</item>
