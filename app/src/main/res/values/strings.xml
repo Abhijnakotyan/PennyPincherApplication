@@ -46,6 +46,7 @@
     <string name="searcha">Search</string>
     <string name="asaved">Saved</string>
     <string name="share">share</string>
+    <string name="logout1">Logout</string>
 
 
     <array name="drawer_items">

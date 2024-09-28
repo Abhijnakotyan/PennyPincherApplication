@@ -1,6 +1,5 @@
 package com.example.pennypincherapplication.activity
 
-
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,8 +29,7 @@ class ExpenseFragment : Fragment(), ExpenseView, View.OnClickListener {
         expenseDatabaseHelper?.let { ExpensePresenter(it, this) }?.setExpenseTypes()
         expenseDatabaseHelper?.close()
 
-        val addExpenseButton =
-            activity?.findViewById<Button>(com.example.pennypincherapplication.R.id.add_expense)
+        val addExpenseButton = activity?.findViewById<Button>(com.example.pennypincherapplication.R.id.add_expense)
         addExpenseButton?.setOnClickListener(this)
     }
 
@@ -60,11 +58,14 @@ class ExpenseFragment : Fragment(), ExpenseView, View.OnClickListener {
     override fun onClick(view: View) {
         val expenseDatabaseHelper = activity?.let { ExpenseDatabaseHelper(it) }
         val expensePresenter = expenseDatabaseHelper?.let { ExpensePresenter(it, this) }
+
         if (expensePresenter != null) {
             if (expensePresenter.addExpense()) {
-                val activity = activity as? MainActivity
-                Toast.makeText(activity, com.example.pennypincherapplication.R.string.expense_add_successfully, Toast.LENGTH_LONG).show()
-                activity?.onExpenseAdded()
+                // Safely cast the activity to MainActivity and call onExpenseAdded if it's not null
+                val mainActivity = activity as? MainActivity
+                Toast.makeText(mainActivity, com.example.pennypincherapplication.R.string.expense_add_successfully, Toast.LENGTH_LONG).show()
+
+                mainActivity?.onExpenseAdded() // Call the method from MainActivity
             }
         }
         expenseDatabaseHelper?.close()

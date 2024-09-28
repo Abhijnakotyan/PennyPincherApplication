@@ -9,6 +9,7 @@
     android:paddingTop="200dp"
     android:paddingRight="24dp"
     android:paddingLeft="24dp"
+    android:background="@drawable/background_color"
     tools:context=".activity.SignUpActivity">
 
     <!-- Title for the Register page -->

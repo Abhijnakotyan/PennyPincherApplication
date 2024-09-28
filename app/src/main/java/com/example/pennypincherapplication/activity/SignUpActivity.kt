@@ -32,15 +32,23 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        // Initialize Firebase Auth and Firestore
+        fAuth = FirebaseAuth.getInstance()
+        fStore = FirebaseFirestore.getInstance()
+
+        // Check if the user is already logged in
+        if (fAuth.currentUser != null) {
+            // User is signed in, redirect to the main activity
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
         // Initialize views
         mFullName = findViewById(R.id.et_username)
         mEmail = findViewById(R.id.et_email)
         mPassword = findViewById(R.id.et_password)
         mRegisterBtn = findViewById(R.id.btn_register)
         mLoginBtn = findViewById(R.id.tv_login_link)
-
-        fAuth = FirebaseAuth.getInstance()
-        fStore = FirebaseFirestore.getInstance()
 
         // Register button click listener
         mRegisterBtn.setOnClickListener {
@@ -49,7 +57,13 @@ class SignUpActivity : AppCompatActivity() {
 
         // Login button click listener
         mLoginBtn.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            // Check if the user is already logged in before proceeding
+            if (fAuth.currentUser != null) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
         }
     }
 

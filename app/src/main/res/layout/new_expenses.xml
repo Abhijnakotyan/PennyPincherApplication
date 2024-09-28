@@ -56,4 +56,6 @@
                 android:text="@string/add_expense"/>
         </LinearLayout>
     </LinearLayout>
+
+
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.pennypincherapplication.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -23,10 +24,15 @@ class AddCategoryActivity : FragmentActivity(), AddCategoryView {
 
         if (categoryPresenter.addCategory()) {
             Toast.makeText(this, getString(R.string.add_category_success), Toast.LENGTH_LONG).show()
+
+            // Set result as OK to indicate success
+            setResult(Activity.RESULT_OK)
+            finish() // Close this activity and return to MainActivity
+        } else {
+            setResult(Activity.RESULT_CANCELED)
         }
 
         expenseDatabaseHelper.close()
-        finishActivity(ADD_NEW_CAT)
     }
 
     override fun getCategory(): String {
@@ -40,6 +46,6 @@ class AddCategoryActivity : FragmentActivity(), AddCategoryView {
     }
 
     companion object {
-        const val ADD_NEW_CAT = 1
+        const val ADD_NEW_CAT = 9991
     }
 }

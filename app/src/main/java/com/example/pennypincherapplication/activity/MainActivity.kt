@@ -1,13 +1,14 @@
 package com.example.pennypincherapplication.activity
 
 import android.content.Intent
-import android.content.res.Configuration
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -28,11 +29,26 @@ class MainActivity : AppCompatActivity(), NavigationDrawerItemView, ActionBar.Ta
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var homeViewPagerAdapter: HomeViewPagerAdapter
-    private val ADD_NEW_CAT = 9991
+
+    companion object {
+        private const val PREFS_NAME = "UserSession"
+        private const val KEY_IS_LOGGED_IN = "isLoggedIn"
+        private const val KEY_USERNAME = "username"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Check if the user is logged in, if not redirect to LoginActivity
+        val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)
+        if (!isLoggedIn) {
+            // User is not logged in, redirect to LoginActivity
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return // Ensure the rest of onCreate is not executed
+        }
 
         configureDrawer()
         configureActionBar()
@@ -51,16 +67,15 @@ class MainActivity : AppCompatActivity(), NavigationDrawerItemView, ActionBar.Ta
     }
 
     override fun goToHome() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         if (supportFragmentManager.backStackEntryCount == 0) {
             supportActionBar?.navigationMode = ActionBar.NAVIGATION_MODE_TABS
+            supportActionBar?.title = getString(R.string.app_name)
         }
-        supportActionBar?.title = getString(R.string.app_name)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -68,38 +83,52 @@ class MainActivity : AppCompatActivity(), NavigationDrawerItemView, ActionBar.Ta
         return true
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        actionBarDrawerToggle.onConfigurationChanged(newConfig)
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        actionBarDrawerToggle.syncState()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_add_category -> {
-                val intent = Intent(this, AddCategoryActivity::class.java)
-                startActivityForResult(intent, ADD_NEW_CAT)
+                startActivityForResult(Intent(this, AddCategoryActivity::class.java), AddCategoryActivity.ADD_NEW_CAT)
+                true
+            }
+            R.id.logout -> {
+                handleLogout()
                 true
             }
             else -> actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
         }
     }
 
+    private fun handleLogout() {
+        // Clear user session from SharedPreferences
+        val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            clear() // Clear all saved user data
+            apply()
+        }
+
+        // Optionally, show a Toast message to confirm logout
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+
+        // Navigate to the login screen
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // Close the MainActivity
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_NEW_CAT) {
+        if (requestCode == AddCategoryActivity.ADD_NEW_CAT && resultCode == RESULT_OK) {
             viewPager.adapter = HomeViewPagerAdapter(supportFragmentManager)
             viewPager.currentItem = 0
         }
     }
 
     fun onExpenseAdded() {
-        viewPager.adapter = homeViewPagerAdapter
-        supportActionBar?.setSelectedNavigationItem(1)
+        // Refresh the ViewPager to update the data
+        viewPager.adapter = HomeViewPagerAdapter(supportFragmentManager)
+        viewPager.currentItem = 0
+
+        // Show a toast message to confirm the expense has been added
+        Toast.makeText(this, "Expense added successfully!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onTabSelected(tab: ActionBar.Tab, ft: FragmentTransaction) {

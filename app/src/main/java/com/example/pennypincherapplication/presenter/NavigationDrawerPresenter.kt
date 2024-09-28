@@ -10,6 +10,7 @@ class NavigationDrawerPresenter(private val view: NavigationDrawerItemView) {
         const val THIS_WEEK = "This Week"
         const val THIS_MONTH = "This Month"
         const val HOME = "Home"
+        const val LOGOUT = "Logout"
     }
 
     fun onItemSelected(drawerItem: String) {
@@ -17,6 +18,7 @@ class NavigationDrawerPresenter(private val view: NavigationDrawerItemView) {
             THIS_WEEK -> view.render(CurrentWeekExpenseFragment())
             THIS_MONTH -> view.render(CurrentMonthExpenseFragment())
             HOME -> view.goToHome()
+            LOGOUT -> view.goToHome()
         }
     }
 }

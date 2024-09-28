@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pennypincherapplication.R
-import com.example.pennypincherapplication.activity.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +20,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mLoginBtn: Button
     private lateinit var fAuth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+        private const val PREFS_NAME = "UserSession"
+        private const val KEY_IS_LOGGED_IN = "isLoggedIn"
+        private const val KEY_USERNAME = "username"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,13 +41,12 @@ class LoginActivity : AppCompatActivity() {
         }
         fAuth = FirebaseAuth.getInstance()
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        // Check if the user is already logged in
-        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
-            // User is already logged in, redirect to MainActivity
-            startActivity(Intent(this, MainActivity::class.java))
+        if (sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)) {
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
             finish()
         }
 
@@ -55,24 +59,37 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Firebase authentication
             fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
 
-                    // Save login session in SharedPreferences
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("isLoggedIn", true)
-                    editor.putString("username", email) // Save username or any other user data
-                    editor.apply()
+                    with(sharedPreferences.edit()) {
+                        putBoolean(KEY_IS_LOGGED_IN, true)
+                        putString(KEY_USERNAME, email)
+                        apply()
+                    }
 
-                    // Redirect to MainActivity
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    })
                     finish()
                 } else {
                     Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    fun logout() {
+        with(sharedPreferences.edit()) {
+            putBoolean(KEY_IS_LOGGED_IN, false)
+            remove(KEY_USERNAME)
+            apply()
+        }
+
+        startActivity(Intent(this, SignUpActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
+        finish()
     }
 }
