@@ -1,27 +1,31 @@
 [versions]
 activity = "1.9.2"
 agp = "8.6.1"
+androidGradle = "8.1.1"
 androidHoloGraph = "0.1.0"
 androidxJunit = "1.2.1"
 appcompat = "1.7.0"
 coreKtx = "1.13.1" # Consolidated version
 espressoCore = "3.6.1"
+gradle = "7.0.4"
+gradleVersion = "7.3.1"
 holographlibrary = "1.0"
 junit = "4.13.2"
 material = "1.12.0" # Updated to match the latest stable release
 mpandroidchart = "v3.1.0"
 constraintlayout = "2.1.4"
 kotlin = "1.9.0"
+yourlibrary = "1.0.0"
 
 [libraries]
 android-holo-graph = { module = "org.quanqi:android-holo-graph", version.ref = "androidHoloGraph" }
-android-holographlibrary = { module = "com.github.ahmadnassri:android-holographlibrary", version.ref = "holographlibrary" }
-androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+gradle-v731 = { module = "com.android.tools.build:gradle", version.ref = "gradleVersion" }
+gradle-v811 = { module = "com.android.tools.build:gradle", version.ref = "androidGradle" }
 holographlibrary = { module = "com.echo:holographlibrary", version.ref = "holographlibrary" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }

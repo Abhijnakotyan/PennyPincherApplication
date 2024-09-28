@@ -6,7 +6,7 @@ class ExpenseCollection(private val expenses: List<Expense>) {
 
     // Calculate the total expense by summing the amounts
     val totalExpense: Long
-        get() = expenses.sumOf { it.amount }
+        get() = expenses.sumOf { it.amount.toLong() } // Convert String to Long
 
     // Group expenses by date
     fun groupByDate(): Map<String, List<Expense>> {

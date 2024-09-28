@@ -20,6 +20,7 @@ class TodaysExpenseListViewAdapter(
     }
 
     override fun getItemId(position: Int): Long {
-        return expenses[position].id
+        return expenses[position].id.toLong() // Assuming id is a numeric string
     }
+
 }
