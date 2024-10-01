@@ -13,7 +13,7 @@
         android:theme="@style/Theme.PennyPincherApplication"
         tools:targetApi="31">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.SignUpActivity"
             android:exported="true"
             android:theme="@style/Theme.MyApp.Splash">
         <intent-filter>
@@ -22,15 +22,13 @@
         </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SignUpActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
         </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

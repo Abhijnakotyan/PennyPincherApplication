@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationDrawerItemView, ActionBar.Ta
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.title = ""
 
         // Check if the user is logged in, if not redirect to LoginActivity
         val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
@@ -85,10 +86,10 @@ class MainActivity : AppCompatActivity(), NavigationDrawerItemView, ActionBar.Ta
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_add_category -> {
-                startActivityForResult(Intent(this, AddCategoryActivity::class.java), AddCategoryActivity.ADD_NEW_CAT)
-                true
-            }
+//            R.id.action_add_category -> {
+//                startActivityForResult(Intent(this, AddCategoryActivity::class.java), AddCategoryActivity.ADD_NEW_CAT)
+//                true
+//            }
             R.id.logout -> {
                 handleLogout()
                 true

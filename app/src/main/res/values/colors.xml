@@ -17,6 +17,7 @@
     <color name="gray_light">#D3D3D3</color>
     <color name="background_light">#F5F5F5</color>
     <color name="link_blue">#007BFF</color>
+    <color name="light_gray">#D3D3D3</color> <!-- Light Gray Color -->
 
     <color name="my_primary">#00897B</color>
     <color name="my_secondary">#FFFFFF</color>

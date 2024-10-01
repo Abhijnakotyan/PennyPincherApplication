@@ -12,6 +12,7 @@ gradleVersion = "7.3.1"
 holographlibrary = "1.0"
 junit = "4.13.2"
 material = "1.12.0" # Updated to match the latest stable release
+materialVersion = "1.9.0"
 mpandroidchart = "v3.1.0"
 constraintlayout = "2.1.4"
 kotlin = "1.9.0"
@@ -33,6 +34,7 @@ gradle-v811 = { module = "com.android.tools.build:gradle", version.ref = "androi
 holographlibrary = { module = "com.echo:holographlibrary", version.ref = "holographlibrary" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 #noinspection SimilarGradleDependency
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }

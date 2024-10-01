@@ -31,6 +31,7 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+        supportActionBar?.title = ""
 
         // Initialize Firebase Auth and Firestore
         fAuth = FirebaseAuth.getInstance()
@@ -72,8 +73,14 @@ class SignUpActivity : AppCompatActivity() {
         val email = mEmail.text.toString().trim()
         val password = mPassword.text.toString().trim()
 
+        // Validate input
         if (TextUtils.isEmpty(email)) {
             mEmail.error = "Email is Required."
+            return
+        }
+
+        if (!isValidEmail(email)) {
+            mEmail.error = "Invalid Email Format."
             return
         }
 
@@ -86,6 +93,8 @@ class SignUpActivity : AppCompatActivity() {
             mPassword.error = "Password Must be >= 6 Characters"
             return
         }
+
+        Log.d(TAG, "Registering user with email: $email and password: $password")
 
         fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -115,5 +124,10 @@ class SignUpActivity : AppCompatActivity() {
                 Log.w(TAG, "Error adding document", e)
                 Toast.makeText(this, "Failed to create user profile.", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    // Function to validate email format
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

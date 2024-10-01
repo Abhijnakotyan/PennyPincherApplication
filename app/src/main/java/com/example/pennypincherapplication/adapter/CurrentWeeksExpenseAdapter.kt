@@ -111,8 +111,8 @@ class CurrentWeeksExpenseAdapter(
 
     // Updated getDayName method to display actual day name from the date
     private fun getDayName(date: String): String {
-        // Define the format of the input date string (assuming the format is "yyyy-MM-dd")
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        // Define the format of the input date string as "dd-MM-yyyy"
+        val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
         return try {
             // Parse the date string into a Date object
