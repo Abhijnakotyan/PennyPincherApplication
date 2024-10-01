@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.example.pennypincherapplication.R
 import com.example.pennypincherapplication.model.Expense
 import com.example.pennypincherapplication.util.ExpenseCollection
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CurrentWeeksExpenseAdapter(
     private val context: Context,
@@ -107,8 +109,21 @@ class CurrentWeeksExpenseAdapter(
         return 0
     }
 
+    // Updated getDayName method to display actual day name from the date
     private fun getDayName(date: String): String {
-        // Implement this method to return the day name based on the date string
-        return "Day Name"  // Placeholder for actual logic
+        // Define the format of the input date string (assuming the format is "yyyy-MM-dd")
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        return try {
+            // Parse the date string into a Date object
+            val parsedDate = inputFormat.parse(date)
+            // Create a new SimpleDateFormat to extract the day of the week
+            val dayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+            // Return the day of the week (e.g., "Monday", "Tuesday")
+            dayFormat.format(parsedDate)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "Invalid date"  // Fallback in case of an error
+        }
     }
 }
