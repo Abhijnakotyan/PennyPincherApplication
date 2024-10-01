@@ -1,12 +1,14 @@
 package com.example.pennypincherapplication.activity
 
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.pennypincherapplication.R
 import com.example.pennypincherapplication.adapter.CurrentWeeksExpenseAdapter
@@ -25,6 +27,7 @@ class CurrentWeekExpenseFragment : Fragment(), CurrentWeekExpenseView {
         return inflater.inflate(R.layout.current_week_expenses, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
