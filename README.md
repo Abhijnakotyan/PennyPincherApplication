@@ -1,13 +1,12 @@
-## 🎯 Primary Objectives of the Penny Pincher Expense Tracker
+## 📘 About Penny Pincher
 
-- **Expense Recording:** Provide users with an easy and intuitive interface to record daily expenses quickly.
+Penny Pincher is an expense tracker application designed to help users manage their finances more effectively. It offers a user-friendly way to track daily spending, categorize expenses, and set budgets. The app aims to enhance financial awareness and promote better decision-making through clear and intuitive tools.
 
-- **Expense Categorization:** Allow users to assign categories (e.g., Food, Transport, Entertainment) to their expenses for better organization and insight into spending habits.
+Key features include:
+- Recording daily expenses with ease.
+- Categorizing spending (e.g., Food, Transport, Entertainment) for better insights.
+- Budget setup with alerts for overspending.
+- Visual reports like charts and graphs to analyze spending habits.
+- Secure user accounts with authentication.
 
-- **Budget Management:** Enable users to set monthly or yearly budgets and track their progress, with alerts when they exceed their predefined limits.
-
-- **Visual Reports:** Offer the ability to generate visual representations of expenses over selected periods, such as charts and graphs, to help users analyze and understand their spending patterns.
-
-- **User Authentication:** Ensure that each user has a secure, personalized experience with account protection via login credentials.
-
-> These objectives focus on improving financial literacy and helping users make better spending decisions by providing a comprehensive overview of their financial activities.
+Overall, Penny Pincher helps users improve financial literacy by providing a complete view of their spending activities in one place.
